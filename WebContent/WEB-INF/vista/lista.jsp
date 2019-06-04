@@ -34,6 +34,7 @@
 	src="<%=request.getRequestURL().substring(0, 21)%>/Mvc/js/index.js"></script>
 </head>
 <body>
+<body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary navega">
 		<a class="navbar-brand" href="#">Aplicacion</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -44,31 +45,33 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item dropdown"><select class="form-control"
-					name="sistema">
-						<option value="0">Seleccione un sistema</option>
-						<%
-							for (int i = 0; i < Control.getConector().getLSistemas().getListaSistemas().size(); i++) {
-						%>
+				<!-- 				<li class="nav-item dropdown"><select class="form-control" -->
+				<!-- 					name="sistema"> -->
+				<!-- 						<option value="0">Seleccione un sistema</option> -->
+				<%-- 						<% --%>
+				// for (int i = 0; i <
+				Control.getConector().getLSistemas().getListaSistemas().size(); i++)
+				{
+				<%-- 						%> --%>
 
-						<option
-							value="<%=Control.getConector().getLSistemas().getListaSistemas().get(i).getSistema()%>"><%=(String) Control.getConector().getLSistemas().getListaSistemas().get(i).getSistema()%></option>
-						<%
-							}
-						%>
-				</select></li>
-				<li class="nav-item dropdown"><select class="form-control"
-					name="consulta">
-						<option value="0">Seleccione una Consulta</option>
+				<!-- 						<option -->
+				<%-- 							value="<%=Control.getConector().getLSistemas().getListaSistemas().get(i).getSistema()%>"><%=(String) Control.getConector().getLSistemas().getListaSistemas().get(i).getSistema()%></option> --%>
+				<%-- 						<% --%>
+				// }
+				<%-- 						%> --%>
+				<!-- 				</select></li> -->
+				<!-- 				<li class="nav-item dropdown"><select class="form-control" -->
+				<!-- 					name="consulta"> -->
+				<!-- 						<option value="0">Seleccione una Consulta</option> -->
 
-						<%
-							for (int i = 0; i < Control.getConsultas().size(); i++) {
-						%>
-						<option value="<%=Control.getConsultas().get(i).getSqlQuerry()%>"><%=(String) Control.getConsultas().get(i).getConsulta()%></option>
-						<%
-							}
-						%>
-				</select></li>
+				<%-- 						<% --%>
+				// for (int i = 0; i < Control.getConsultas().size(); i++) {
+				<%-- 						%> --%>
+				<%-- 						<option value="<%=Control.getConsultas().get(i).getSqlQuerry()%>"><%=(String) Control.getConsultas().get(i).getConsulta()%></option> --%>
+				<%-- 						<% --%>
+				// }
+				<%-- 						%> --%>
+				<!-- 				</select></li> -->
 
 			</ul>
 		</div>
@@ -79,6 +82,13 @@
 			height="50%" width="20%">
 		</span>
 	</div>
+	<c:forEach items="${listado}" var="listValue">
+		<tr>
+			<td><c:out value="${listado.get(1)}" />
+			<td><c:out value="${listado.get(2)}" />
+			<td><c:out value="${listado.get(3)}" />
+		</tr>
+	</c:forEach>
 
 	SISTEMA: ${param.sistema}. sistema elegido Consulta: ${param.consulta}.
 	Consulta elegida
@@ -99,7 +109,7 @@
 					url="jdbc:oracle:thin:@donald.r.lan:1551/maexe" user="dba_maexe"
 					password="dba_maexe" />
 				<sql:query var="list_u" dataSource="${myDS}">
-			SELECT x.*,x.ROWID FROM MAEXE.MAEX_TM_TIPOSEQUIPOS x
+			SELECT x.*,x.ROWID FROM MAEXE.MAEX_TM_TIPOSEQUIPOS x where ROWNUM <=100
 			</sql:query>
 
 
@@ -114,6 +124,6 @@
 
 			</tbody>
 		</table>
-		</div>
+	</div>
 </body>
 </html>

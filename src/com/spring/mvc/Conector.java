@@ -68,7 +68,7 @@ public class Conector {
 		}
 	}
 	
-	public void Consultar(Consulta C,String uri,String sys) {
+	public ResultSet ConsultarResulset(Consulta C) {
 
 		int SysIndex = this.identificarSistema(C.getSistema());
 
@@ -76,21 +76,18 @@ public class Conector {
 		String SisID = SysList.getListaSistemas().get(SysIndex).getSystemId();
 		String user = SysList.getListaSistemas().get(SysIndex).getUser();
 		String pass = SysList.getListaSistemas().get(SysIndex).getPass();
-		
-		uri = url;
-		sys = SisID;
-		
+		Connection con;
 		
 		try {
-			//Class.forName("oracle.jdbc.driver.OracleDriver");
-		     Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		    //Class.forName("com.mysql.jdbc.Driver");
 			// Connection con =
 			// DriverManager.getConnection("jdbc:mysql://localhost:3306/sonoo", "root",
 			// "root");
 			System.out.println(url);
-		     url = "jdbc:mysql://" + uri + "/" + sys;
-			//url = "jdbc:oracle:thin:@" + url +"/"+SisID;
-			Connection con = DriverManager.getConnection(url, user, pass);
+		     //url = "jdbc:mysql://" + url + "/" + SisID;
+			url = "jdbc:oracle:thin:@" + url +"/"+SisID;
+			 con = DriverManager.getConnection(url, user, pass);
 			// here sonoo is database name, root is username and password
 			System.out.println("la ruta de conexion es: "+url+"; "+user+"; "+pass);
 			System.out.println("la consulta es: "+ C.getSqlQuerry()+" con parametros: "+C.getParameters().toString());
@@ -105,17 +102,18 @@ public class Conector {
 			 */
 
 			ResultSet rs = pStmt.executeQuery();
-			while (rs.next())
-				
-				System.out.println(rs.getString(1) + "  " + rs.getString(2) + "  " + rs.getString(3));
 			con.close();
+			return rs;
+			
 			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Se ha producido un error en la conexion");
 			System.out.println(e);
 		}
+		
+		return null;
 	}
-
+	
 	
 
 	protected int identificarSistema(String sistema) {
