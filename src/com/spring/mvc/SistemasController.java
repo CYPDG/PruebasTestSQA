@@ -37,36 +37,14 @@ public class SistemasController {
 		
 		conec = con.getConector();
 		
-//		conec = new Conector();
-		
-		//conec.Consultar(consultas.get(0));
-		conec.ConsultarResulset(consultas.get(0));
-	
-		ResultSet rs = null; 	//cont.getConector().ConsultarResulset(con.getConsultas().get(i));
-		String[] param1 = null;
-		
-		rs = conec.ConsultarResulset(consultas.get(0));
+		@SuppressWarnings("rawtypes")
+		ArrayList lista = conec.ConsultarResulset(consultas.get(0));
 
-		
-		while (rs.next()) {
-			
-		System.out.println(rs.getString(1) + "  " + rs.getString(2) + "  " + rs.getString(3));
-		
-		param1[0] = rs.getString(1);
-		param1[1] = rs.getString(2);
-		param1[2] = rs.getString(3);
-		param1[3] = rs.getString(4);
-		
-		
-		}
-				
-		ArrayList<String> lista = new ArrayList<>();
-		
-		lista.add(a);
 		
 		
 		model.addAttribute("listado",lista);
 		
+
 
 		
 		return "lista";

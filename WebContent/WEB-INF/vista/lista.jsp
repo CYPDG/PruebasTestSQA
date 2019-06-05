@@ -90,8 +90,7 @@
 		</tr>
 	</c:forEach>
 
-	SISTEMA: ${param.sistema}. sistema elegido Consulta: ${param.consulta}.
-	Consulta elegida
+	
 	<div class="mia">
 		<table
 			class="table table-striped table-bordered table-hover table-sm table-responsive">
@@ -104,24 +103,13 @@
 				</tr>
 			</thead>
 			<tbody>
-				<sql:setDataSource var="myDS"
-					driver="oracle.jdbc.driver.OracleDriver"
-					url="jdbc:oracle:thin:@donald.r.lan:1551/maexe" user="dba_maexe"
-					password="dba_maexe" />
-				<sql:query var="list_u" dataSource="${myDS}">
-			SELECT x.*,x.ROWID FROM MAEXE.MAEX_TM_TIPOSEQUIPOS x where ROWNUM <=100
-			</sql:query>
-
-
-				<c:forEach items="${list_u.rows}" var="MaexTmTiposgama">
+				<c:forEach var="listValue" items="${listado}">
 					<tr>
-						<td><c:out value="${MaexTmTiposgama.codigo}" />
-						<td><c:out value="${MaexTmTiposgama.idversion}" />
-						<td><c:out value="${MaexTmTiposgama.descripcion}" />
+						<c:forEach var="listaTokens" items="${listValue}">
+							<td><c:out value="${listaTokens}" /></td>
+						</c:forEach>
 					</tr>
 				</c:forEach>
-
-
 			</tbody>
 		</table>
 	</div>
